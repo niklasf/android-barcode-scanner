@@ -22,7 +22,18 @@ app.param('channel', function (req, res, next, token) {
 app.get('/channel/:channel/', function (req, res) {
     setTimeout(function() {
         res.setHeader('Content-Type', 'text/plain');
-        res.end(channels.get(req.channel));
+
+        var respondNow = function() {
+            res.end(channels.get(req.channel));
+            channels.unsubscribe(req.channel, respondNow);
+        };
+
+        if (channels.get(req.channel)) {
+            respondNow();
+        } else {
+            channels.subscribe(req.channel, respondNow);
+            setTimeout(respondNow, 30000);
+        }
     }, Math.floor(Math.random() * 20));
 });
 
