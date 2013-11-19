@@ -26,6 +26,31 @@ app.get('/channel/:channel/', function (req, res) {
     }, Math.floor(Math.random() * 20));
 });
 
+app.delete('/channel/:channel/', function (req, res) {
+    setTimeout(function() {
+        res.setHeader('Content-Type', 'text/plain');
+        res.end(channels.get(req.channel));
+        channels.clear(req.channel);
+    }, Math.floor(Math.random() * 20));
+});
+
+app.put('/channel/:channel/', function (req, res) {
+    var data = '';
+
+    req.setEncoding('utf8');
+
+    req.on('data', function(chunk) {
+        data += chunk;
+    });
+
+    req.on('end', function() {
+        setTimeout(function () {
+            channels.append(req.channel, data);
+            res.end(channels.get(req.channel));
+        }, Math.floor(Math.random() * 20));
+    });
+});
+
 app.get('/channel/:channel/qr.png', function (req, res) {
     res.setHeader('Content-Type', 'image/png');
 
@@ -41,3 +66,7 @@ app.get('/channel/:channel/qr.png', function (req, res) {
 app.listen(process.env.PORT || 80, function () {
     console.log("Listening on " + (process.env.PORT || 80) + " ...");
 });
+
+setInterval(function () {
+    channels.flip();
+}, 60000);
