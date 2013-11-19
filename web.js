@@ -32,7 +32,7 @@ app.get('/channel/:channel/', function (req, res) {
             respondNow();
         } else {
             channels.subscribe(req.channel, respondNow);
-            setTimeout(respondNow, 30000);
+            setTimeout(respondNow, 15000);
         }
     }, Math.floor(Math.random() * 20));
 });
@@ -51,7 +51,7 @@ app.delete('/channel/:channel/', function (req, res) {
             respondNow();
         } else {
             channels.subscribe(req.channel, respondNow);
-            setTimeout(respondNow, 30000);
+            setTimeout(respondNow, 15000);
         }
     }, Math.floor(Math.random() * 20));
 });
