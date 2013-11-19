@@ -1,3 +1,5 @@
+var PLAY_STORE_URL = 'http://play.google.com/store/apps/details?id=de.tuc.barcodescanner';
+
 var express = require('express'),
     qrcode = require('qrcode'),
     crypto = require('crypto');
@@ -20,7 +22,7 @@ app.param('channel', function (req, res, next, token) {
 app.get('/channel/:channel/qr.png', function (req, res) {
     res.setHeader('Content-Type', 'image/png');
 
-    qrcode.draw(req.channel, function (err, canvas) {
+    qrcode.draw(PLAY_STORE_URL + '#' + req.channel, function (err, canvas) {
         if (err) {
             throw err;
         }
