@@ -4,6 +4,7 @@
     "author": "Niklas Fiekas <niklas.fiekas@tu-clausthal.de>",
     "description": "the android-barcode-scanner relay",
     "dependencies": {
-        "express": "3.x"
+        "express": "3.x",
+        "qrcode": "0.2.x"
     }
 }
