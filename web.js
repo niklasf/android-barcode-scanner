@@ -40,8 +40,19 @@ app.get('/channel/:channel/', function (req, res) {
 app.delete('/channel/:channel/', function (req, res) {
     setTimeout(function() {
         res.setHeader('Content-Type', 'text/plain');
-        res.end(channels.get(req.channel));
-        channels.clear(req.channel);
+
+        var respondNow = function() {
+            res.end(channels.get(req.channel));
+            channels.clear(req.channel);
+            channels.unsubscribe(req.channel, respondNow);
+        };
+
+        if (channels.get(req.channel)) {
+            respondNow();
+        } else {
+            channels.subscribe(req.channel, respondNow);
+            setTimeout(respondNow, 30000);
+        }
     }, Math.floor(Math.random() * 20));
 });
 
