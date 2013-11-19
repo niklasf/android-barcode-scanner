@@ -36,9 +36,11 @@ exports.create = function() {
             return callback;
         },
         unsubscribe: function(channel, callback) {
-            var index = subscribers[channel].indexOf(callback);
-            if (index != -1) {
-                subscribers[channel].splice(index, 1);
+            if (subscribers[channel]) {
+                var index = subscribers[channel].indexOf(callback);
+                if (index != -1) {
+                    subscribers[channel].splice(index, 1);
+                }
             }
         },
     };
