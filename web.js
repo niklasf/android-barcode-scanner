@@ -6,7 +6,7 @@ var express = require('express'),
 
 var app = express();
 
-var channels = { };
+var channels = require('./channels').create();
 
 app.use(express.logger());
 
@@ -17,6 +17,13 @@ app.param('channel', function (req, res, next, token) {
     } else {
         next('route');
     }
+});
+
+app.get('/channel/:channel/', function (req, res) {
+    setTimeout(function() {
+        res.setHeader('Content-Type', 'text/plain');
+        res.end(channels.get(req.channel));
+    }, Math.floor(Math.random() * 20));
 });
 
 app.get('/channel/:channel/qr.png', function (req, res) {
