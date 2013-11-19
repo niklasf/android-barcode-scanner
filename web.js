@@ -4,26 +4,28 @@ var express = require('express'),
 
 var app = express();
 
+var channels = { };
+
 app.use(express.logger());
 
-app.get('/', function (req, res) {
-    res.setHeader('Content-Type', 'text/plain');
+app.param('channel', function (req, res, next, token) {
+    if (/^[0-9a-f]{1,64}$/.exec(token)) {
+        req.channel = token;
+        next();
+    } else {
+        next('route');
+    }
+});
 
-    crypto.randomBytes(20, function (err, buffer) {
+app.get('/channel/:channel/qr.png', function (req, res) {
+    res.setHeader('Content-Type', 'image/png');
+
+    qrcode.draw(req.channel, function (err, canvas) {
         if (err) {
             throw err;
         }
 
-        var token = buffer.toString('hex');
-        console.log(token);
-
-        qrcode.draw(token, function (err, canvas) {
-            if (err) {
-                throw err;
-            }
-
-            canvas.pngStream().pipe(res);
-        });
+        canvas.pngStream().pipe(res);
     });
 });
 
