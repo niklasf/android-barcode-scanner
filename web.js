@@ -91,4 +91,4 @@ app.listen(process.env.PORT || 80, function () {
 
 setInterval(function () {
     channels.flip();
-}, 60000);
+}, 15000);
