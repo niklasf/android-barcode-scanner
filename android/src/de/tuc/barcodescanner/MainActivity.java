@@ -14,21 +14,47 @@ public class MainActivity extends Activity {
 	
 	private String mChannel;
 	
+	private boolean mDisabled;
+	
+	private void setChannel(String channel) {
+		if (channel == null || mDisabled) {
+			setContentView(R.layout.activity_main);
+	        
+	        Button scanButton = (Button) findViewById(R.id.scanButton);
+	        scanButton.setOnClickListener(new OnClickListener() {
+	
+				@Override
+				public void onClick(View button) {
+					mDisabled = false;
+					
+					IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
+			        integrator.initiateScan();
+				}
+	        	
+	        });
+		} else if (channel != null) {
+			setContentView(R.layout.activity_main_spinner);
+		}
+		
+		mChannel = channel;
+	}
+	
+	@Override
+	protected void onSaveInstanceState(Bundle savedInstanceState) {
+		savedInstanceState.putString("mChannel", mChannel);
+		savedInstanceState.putBoolean("mDisabled", mDisabled);
+	}
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        
-        Button scanButton = (Button) findViewById(R.id.scanButton);
-        scanButton.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View button) {
-				IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
-		        integrator.initiateScan();
-			}
-        	
-        });
+    	super.onCreate(savedInstanceState);
+    	
+    	if (savedInstanceState != null) {
+    		mDisabled = savedInstanceState.getBoolean("mDisabled");
+    		setChannel(savedInstanceState.getString("mChannel"));
+    	} else {
+    		setChannel(null);
+    	}
     }
     
     @Override
@@ -36,26 +62,29 @@ public class MainActivity extends Activity {
     	super.onActivityResult(requestCode, resultCode, intent);
     	
     	IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);
-    	if (result != null && result.getContents() != null) {
+    	if (result != null) {
     		String content = result.getContents();
+
+    		if (content != null) {
+	    		if (content.startsWith("http://play.google.com/store/apps/details?id=de.tuc.barcodescanner#")) {
+	    			setChannel(content.substring(content.indexOf('#') + 1));
+	    			content = "";
+	    		}
     		
-    		if (content.startsWith("http://play.google.com/store/apps/details?id=de.tuc.barcodescanner#")) {
-    			setContentView(R.layout.activity_main_spinner);
-    			
-    			mChannel = content.substring(content.indexOf('#') + 1);
-    			content = "";
-    		}
-    		
-    		if (mChannel != null) {
-	    		PutScanResultTask.create(mChannel, content).setListener(new PutScanResultTaskListener() {
+	    		if (mChannel != null) {
+	    			PutScanResultTask.create(mChannel, content).setListener(new PutScanResultTaskListener() {
 	    			
-					@Override
-					public void finished(boolean result) {
-						IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
-					   	integrator.initiateScan();
-					}
+						@Override
+						public void finished(boolean result) {
+							IntentIntegrator integrator = new IntentIntegrator(MainActivity.this);
+						   	integrator.initiateScan();
+						}
 	    				
-	    		});
+	    			});
+	    		}
+    		} else {
+    			mDisabled = true;
+    			setContentView(R.layout.activity_main);
     		}
     	}
     }
