@@ -66,7 +66,7 @@ public class MainActivity extends Activity {
     		String content = result.getContents();
 
     		if (content != null) {
-	    		if (content.startsWith("http://play.google.com/store/apps/details?id=de.tuc.barcodescanner#")) {
+    			if (content.startsWith(Config.BACKEND + "BarcodeScanner.apk#")) {
 	    			setChannel(content.substring(content.indexOf('#') + 1));
 	    			content = "";
 	    		}

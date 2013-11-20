@@ -19,7 +19,7 @@ public class PutScanResultTask extends AsyncTask<String, Void, Boolean> {
 	@Override
 	protected Boolean doInBackground(String... args) {
 		try {
-			URL url = new URL("https://android-barcode-scanner.herokuapp.com/channel/" + args[0] + "/");
+			URL url = new URL(Config.BACKEND + "channel/" + args[0] + "/");
 		
 		    HttpsURLConnection connection = (HttpsURLConnection) url.openConnection();
 			connection.setDoOutput(true);

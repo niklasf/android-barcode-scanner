@@ -2,3 +2,4 @@ backend.txt
 config.js
 android/src/de/tuc/barcodescanner/Config.java
 client/config.h
+dist/
