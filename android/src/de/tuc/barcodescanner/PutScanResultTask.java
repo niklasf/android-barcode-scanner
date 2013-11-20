@@ -7,7 +7,6 @@ import java.net.URL;
 import javax.net.ssl.HttpsURLConnection;
 
 import android.os.AsyncTask;
-import android.util.Log;
 
 public class PutScanResultTask extends AsyncTask<String, Void, Boolean> {
 
@@ -34,7 +33,6 @@ public class PutScanResultTask extends AsyncTask<String, Void, Boolean> {
 			
 			return Boolean.TRUE;
 		} catch (IOException ex) {
-			Log.e("barcode", "HTTP PUT failed.", ex);
 			return Boolean.FALSE;
 		}
 	}
