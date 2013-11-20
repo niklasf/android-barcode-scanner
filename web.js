@@ -1,8 +1,7 @@
 var PLAY_STORE_URL = 'http://play.google.com/store/apps/details?id=de.tuc.barcodescanner';
 
 var express = require('express'),
-    qrcode = require('qrcode'),
-    crypto = require('crypto');
+    qrcode = require('qrcode');
 
 var app = express();
 
