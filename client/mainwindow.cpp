@@ -1,5 +1,8 @@
 #include "mainwindow.h"
 
+#define PLAY_STORE_URL "http://play.google.com/store/apps/details?id=de.tuc.barcodescanner"
+#define SERVICE_URL "https://android-barcode-scanner.herokuapp.com/"
+
 #ifdef Q_OS_WIN
 #include <windows.h>
 #endif
@@ -113,7 +116,7 @@ MainWindow::MainWindow(QWidget *parent)
     // Download the QR-code.
     // TODO: Use random channel.
     QNetworkRequest request;
-    request.setUrl(QUrl("https://android-barcode-scanner.herokuapp.com/channel/" + secret + "/qr.png"));
+    request.setUrl(QUrl(QString(SERVICE_URL) + "channel/" + secret + "/qr.png"));
     networkAccessManager->get(request);
 }
 
@@ -161,7 +164,7 @@ void MainWindow::replyFinished(QNetworkReply *reply)
 
     // Keep polling.
     QNetworkRequest request;
-    request.setUrl(QUrl("https://android-barcode-scanner.herokuapp.com/channel/" + secret + "/"));
+    request.setUrl(QUrl(QString(SERVICE_URL) + "channel/" + secret + "/"));
     networkAccessManager->deleteResource(request);
 }
 
@@ -250,7 +253,7 @@ void MainWindow::about()
 
 void MainWindow::installApp()
 {
-    QDesktopServices::openUrl(QUrl("http://play.google.com/store/apps/details?id=de.tuc.barcodescanner"));
+    QDesktopServices::openUrl(QUrl(PLAY_STORE_URL));
 }
 
 MainWindow::~MainWindow()
