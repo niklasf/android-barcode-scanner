@@ -1,0 +1,6 @@
+Makefile
+Makefile.Debug
+Makefile.Release
+android-barcode-scanner-client.pro.user
+release/
+debug/
