@@ -9,5 +9,9 @@
     },
     "devDependencies": {
         "nodeunit": "0.8.x"
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/niklasf/android-barcode-scanner.git"
     }
 }
