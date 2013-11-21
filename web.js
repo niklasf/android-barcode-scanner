@@ -83,6 +83,14 @@ app.get('/channel/:channel/qr.png', function (req, res) {
     });
 });
 
+app.get('/BarcodeScanner.apk', function (req, res) {
+    res.sendfile('android/bin/BarcodeScanner.apk');
+});
+
+app.get('/android-barcode-scanner-client.exe', function (req, res) {
+    res.sendfile('client/release/android-barcode-scanner-client.exe');
+});
+
 app.listen(process.env.PORT || 80, function () {
     console.log("Listening on " + (process.env.PORT || 80) + " ...");
 });
