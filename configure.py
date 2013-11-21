@@ -24,6 +24,10 @@ def write_client_config(backend):
 
 if __name__ == "__main__":
     backend = open("backend.txt").read().strip()
+
+    if not backend.endswith("/"):
+        backend += "/"
+
     write_node_config(backend)
     write_android_config(backend)
     write_client_config(backend)
