@@ -86,11 +86,11 @@ app.get('/channel/:channel/qr.png', function (req, res) {
 });
 
 app.get('/BarcodeScanner.apk', function (req, res) {
-    res.sendfile('android/bin/BarcodeScanner.apk');
+    res.sendfile(process.cwd() + '/android/bin/BarcodeScanner.apk');
 });
 
 app.get('/android-barcode-scanner-client.exe', function (req, res) {
-    res.sendfile('client/release/android-barcode-scanner-client.exe');
+    res.sendfile(process.cwd() + '/client/release/android-barcode-scanner-client.exe');
 });
 
 app.get('/vcredist.exe', function (req, res) {
@@ -100,7 +100,7 @@ app.get('/vcredist.exe', function (req, res) {
 app.get('/', function (req, res) {
     res.setHeader('Content-type', 'text/html');
 
-    fs.readFile('README.md', function (err, data) {
+    fs.readFile(process.cwd() + '/README.md', function (err, data) {
         if (err) {
             throw err;
         }
