@@ -1,5 +1,7 @@
 var express = require('express'),
-    qrcode = require('qrcode');
+    qrcode = require('qrcode'),
+    marked = require('marked'),
+    fs = require('fs');
 
 var BACKEND = require('./config.js').BACKEND;
 
@@ -93,6 +95,18 @@ app.get('/android-barcode-scanner-client.exe', function (req, res) {
 
 app.get('/vcredist.exe', function (req, res) {
     res.redirect(301, 'http://www.microsoft.com/de-de/download/confirmation.aspx?id=30679');
+});
+
+app.get('/', function (req, res) {
+    res.setHeader('Content-type', 'text/html');
+
+    fs.readFile('README.md', function (err, data) {
+        if (err) {
+            throw err;
+        }
+
+        res.end(marked(data.toString()));
+    });
 });
 
 app.listen(process.env.PORT || 80, function () {

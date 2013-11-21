@@ -20,6 +20,7 @@ def dist_node():
     shutil.copy("package.json", "dist")
     shutil.copy("Procfile", "dist")
     shutil.copy("web.js", "dist")
+    shutil.copy("README.md", "dist")
 
     print "[   NEW   ] Node app"
 
