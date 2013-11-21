@@ -36,6 +36,6 @@ HTTPS is recommended as there are no other security measures.
 
 Author, license, bug reports
 ----------------------------
-Report bugs to Niklas Fiekas <niklas (dot) fiekas (at) tu-clausthal (dot) de> or
+Report bugs to niklas (dot) fiekas (at) tu-clausthal (dot) de or
 [fork me on GitHub](https://github.com/niklasf/android-barcode-scanner/).
 android-barcode-scanner is licensed under the GPL-3.
