@@ -42,7 +42,7 @@ def dist_windows():
     if os.path.exists("client/release/android-barcode-scanner-client.exe"):
         shutil.copy("client/release/android-barcode-scanner-client.exe", "dist/client/release")
         print "[   NEW   ] Windows client"
-    elif os.path.isfile("dist/client/release/android-...-client.exe"):
+    elif os.path.isfile("dist/client/release/android-barcode-scanner-client.exe"):
         print "[   OLD   ] Windows client: dist/client/release/android-...-client.exe"
     else:
         print "[ WARNING ] Windows client: Did not find client/release/android-...-client.exe"
