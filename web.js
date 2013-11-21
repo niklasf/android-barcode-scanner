@@ -74,7 +74,7 @@ app.put('/channel/:channel/', function (req, res) {
 app.get('/channel/:channel/qr.png', function (req, res) {
     res.setHeader('Content-Type', 'image/png');
 
-    qrcode.draw(BACKEND + '/BarcodeScanner.apk#' + req.channel, function (err, canvas) {
+    qrcode.draw(BACKEND + 'BarcodeScanner.apk#' + req.channel, function (err, canvas) {
         if (err) {
             throw err;
         }
