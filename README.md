@@ -1,5 +1,5 @@
-Android Barcode Scanner
-=======================
+Android Barcode Scanner [UNMAINTAINED]
+======================================
 
 Use an android device as a wireless barcode scanner.
 
